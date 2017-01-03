@@ -5,14 +5,15 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.ValueMarker;
 import org.jfree.data.xy.XYDataItem;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.JFrame;
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,6 +30,7 @@ import java.text.ParsePosition;
 public class TimePlotter extends JFrame {
 
     private static final Logger log = LoggerFactory.getLogger(TimePlotter.class);
+    public static final int SAFE_TEMP = 63;
 
     public static void main(String... args) throws Exception {
         new TimePlotter();
@@ -70,6 +72,7 @@ public class TimePlotter extends JFrame {
                 false // urls
         );
 
+        chartXY.getXYPlot().addRangeMarker(new ValueMarker(SAFE_TEMP));
 
         NumberAxis domainAxisXY = (NumberAxis) chartXY.getXYPlot().getDomainAxis();
         domainAxisXY.setNumberFormatOverride(new NumberFormat() {
